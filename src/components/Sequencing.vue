@@ -1,20 +1,30 @@
 <template>
   <div>
-    <div class="input_box">
+    <div class="sequencing">
       <div>
-        <p>表示するボックス数</p>
+        <p class="lead p-3">表示するボックス数</p>
         <p>
-          <input type="number" v-model.number="numberOfBoxes" min="0" @change="deleteElement" />
+          <b-form-input
+            class="input_numbers"
+            type="number"
+            v-model.number="numberOfBoxes"
+            min="0"
+            @change="deleteElement"
+          />
         </p>
       </div>
-      <div v-for="item in numberOfBoxes" :key="item">
-        <input type="text" v-model="saveNames[item - 1]" />
+      <div class="input_namaes" v-for="item in numberOfBoxes" :key="item">
+        <b-form-input type="text" v-model="saveNames[item - 1]" />
       </div>
-      <div>
+      <div class="m-2">
         <p>
-          <button @click="shuffle">シャッフル</button>
+          <b-button variant="outline-secondary" @click="shuffle"
+            >シャッフル</b-button
+          >
         </p>
-        <p v-for="item in shuffleNames" :key="item">{{ item }}</p>
+        <p class="lead p-3" v-for="item in shuffleNames" :key="item">
+          {{ item }}
+        </p>
       </div>
     </div>
   </div>
@@ -54,4 +64,13 @@ export default class Sequencing extends Vue {
 </script>
 
 <style>
+.sequencing {
+  width: 80%;
+  margin: auto;
+}
+
+.input_numbers,
+.input_namaes {
+  padding: 10px;
+}
 </style>
