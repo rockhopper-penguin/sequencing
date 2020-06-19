@@ -4,7 +4,7 @@
       <div>
         <p>表示するボックス数</p>
         <p>
-          <input type="number" v-model.number="numberOfBoxes" min="0" />
+          <input type="number" v-model.number="numberOfBoxes" min="0" @change="deleteElement" />
         </p>
       </div>
       <div v-for="item in numberOfBoxes" :key="item">
@@ -42,6 +42,12 @@ export default class Sequencing extends Vue {
       const tmp = this.shuffleNames[i];
       this.shuffleNames[i] = this.shuffleNames[j];
       this.shuffleNames[j] = tmp;
+    }
+  }
+
+  deleteElement() {
+    if (this.saveNames.length > this.numberOfBoxes) {
+      this.saveNames.splice(this.numberOfBoxes, this.saveNames.length);
     }
   }
 }
