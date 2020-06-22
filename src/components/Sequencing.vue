@@ -7,24 +7,20 @@
           <b-form-input
             class="input_numbers"
             type="number"
-            v-model.number="numberOfBoxes"
+            v-model.number="Data.numberOfBoxes"
             min="0"
             @change="deleteElement"
           />
         </p>
       </div>
-      <div class="input_namaes" v-for="item in numberOfBoxes" :key="item">
-        <b-form-input type="text" v-model="saveNames[item - 1]" />
+      <div class="input_namaes" v-for="item in Data.numberOfBoxes" :key="item">
+        <b-form-input type="text" v-model="Data.saveNames[item - 1]" />
       </div>
       <div class="m-2">
         <p>
-          <b-button variant="outline-secondary" @click="shuffle"
-            >シャッフル</b-button
-          >
+          <b-button variant="outline-secondary" @click="shuffle">シャッフル</b-button>
         </p>
-        <p class="lead p-3" v-for="item in shuffleNames" :key="item">
-          {{ item }}
-        </p>
+        <p class="lead p-3" v-for="item in Data.shuffleNames" :key="item">{{ item }}</p>
       </div>
     </div>
   </div>
@@ -32,32 +28,33 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Datas from "@/store/index";
 
 @Component
 export default class Sequencing extends Vue {
-  /** 表示するボックス数 */
-  private numberOfBoxes = 0;
-  /** ボックスに入力される値 */
-  private saveNames: string[] = [];
-  /** シャッフル用配列 */
-  private shuffleNames: string[] = [];
+  private get Data() {
+    return Datas.state;
+  }
 
   private shuffle() {
     // 配列の初期化
-    this.shuffleNames = [];
+    this.Data.shuffleNames = [];
     // シャッフル用配列にボックスの入力値配列をディープコピー
-    this.shuffleNames = [...this.saveNames];
-    for (let i = this.shuffleNames.length - 1; i > 0; i--) {
+    this.Data.shuffleNames = [...this.Data.saveNames];
+    for (let i = this.Data.shuffleNames.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      const tmp = this.shuffleNames[i];
-      this.shuffleNames[i] = this.shuffleNames[j];
-      this.shuffleNames[j] = tmp;
+      const tmp = this.Data.shuffleNames[i];
+      this.Data.shuffleNames[i] = this.Data.shuffleNames[j];
+      this.Data.shuffleNames[j] = tmp;
     }
   }
 
   deleteElement() {
-    if (this.saveNames.length > this.numberOfBoxes) {
-      this.saveNames.splice(this.numberOfBoxes, this.saveNames.length);
+    if (this.Data.saveNames.length > this.Data.numberOfBoxes) {
+      this.Data.saveNames.splice(
+        this.Data.numberOfBoxes,
+        this.Data.saveNames.length
+      );
     }
   }
 }
