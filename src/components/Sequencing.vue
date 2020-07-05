@@ -28,12 +28,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Datas from "@/store/index";
+import { datas } from "@/store/index";
 
 @Component
 export default class Sequencing extends Vue {
   private get Data() {
-    return Datas.state;
+    return datas;
   }
 
   private shuffle() {
