@@ -18,9 +18,13 @@
       </div>
       <div class="m-2">
         <p>
-          <b-button variant="outline-secondary" @click="shuffle">シャッフル</b-button>
+          <b-button variant="outline-secondary" @click="shuffle"
+            >シャッフル</b-button
+          >
         </p>
-        <p class="lead p-3" v-for="item in Data.shuffleNames" :key="item">{{ item }}</p>
+        <p class="lead p-3" v-for="item in Data.shuffleNames" :key="item">
+          {{ item }}
+        </p>
       </div>
     </div>
   </div>
